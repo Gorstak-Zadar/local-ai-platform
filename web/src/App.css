@@ -84,6 +84,35 @@ header p {
   color: var(--accent);
 }
 
+.mode-toggle {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+}
+.mode-toggle button {
+  padding: 0.35rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.mode-toggle button:hover {
+  color: var(--text);
+}
+.mode-toggle button.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.mode-hint {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
 .controls {
   margin-bottom: 1rem;
 }
