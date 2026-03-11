@@ -149,7 +149,7 @@ function App() {
       const stream = await engine.chat.completions.create({
         messages: msgs,
         stream: true,
-        max_tokens: 0,
+        max_tokens: 4096,
       });
       for await (const chunk of stream) {
         const delta = chunk.choices?.[0]?.delta?.content ?? "";
