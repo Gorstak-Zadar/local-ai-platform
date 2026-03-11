@@ -3,17 +3,14 @@
   "private": true,
   "workspaces": [
     "server",
-    "web",
-    "worker"
+    "web"
   ],
   "scripts": {
     "build": "cd web && npm run build",
-    "install:all": "npm install && cd server && npm install && cd ../web && npm install && cd ../worker && npm install",
+    "install:all": "npm install && cd server && npm install && cd ../web && npm install",
     "dev:server": "cd server && npm run dev",
     "dev:web": "cd web && npm run dev",
-    "start:worker": "cd worker && npm start",
     "build:web": "cd web && npm run build",
-    "build:worker": "cd worker && npm run build",
     "start": "cd server && npm start"
   }
 }

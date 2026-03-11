@@ -1,89 +1,59 @@
-# Local AI Platform
+## Local AI Platform
 
 **Free · Unlimited · Your Hardware**
 
 → **[Try it live](https://local-ai-platform-production.up.railway.app/)**
 
-A ChatGPT-like web interface where prompts are entered on your website, but **all inference runs on the user's machine**. No cloud GPUs, no API keys, no limits.
+A ChatGPT-like web interface where prompts are entered on your website, but **all inference runs in the user's browser via WebGPU**. No cloud GPUs, no API keys, no limits, no installs.
 
-**Two modes:**
-- **Quick** — Runs entirely in your browser (WebLLM). No install. Use it immediately.
-- **Full** — Uses Ollama + worker for larger, more capable models.
+### How it works now
 
-## Architecture
+- **Single mode** — Runs entirely in the user's browser using [WebLLM](https://webllm.mlc.ai/).
+- Uses a **Llama 3.2 3B** model (`Llama-3.2-3B-Instruct-q4f16_1-MLC`) loaded on demand.
+- Uses the user's GPU (when WebGPU is available). If WebGPU is not supported, the app shows an error.
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  Web app (your server) — chat UI, prompts               │
-└─────────────────────────────┬───────────────────────────┘
-                              │ WebSocket relay
-                              ▼
-┌─────────────────────────────────────────────────────────┐
-│  User's PC — Worker + Ollama (local inference)          │
-└─────────────────────────────────────────────────────────┘
-```
+There is **no worker process, no Ollama, and no separate \"Full\" mode** anymore.
 
 ## Quick Start
 
-### 1. Install Ollama (user's machine)
-
-[Download Ollama](https://ollama.com) and install. Then pull a model:
-
-```bash
-ollama pull llama3.2:3b
-```
-
-### 2. Install dependencies
+### 1. Install dependencies
 
 ```bash
 cd local-ai-platform
 npm install
 cd server && npm install
 cd ../web && npm install
-cd ../worker && npm install
 ```
 
-### 3. Start the server
+### 2. Run in development
 
 ```bash
 cd server
 npm run dev
 ```
 
-Server runs at `http://localhost:3000`.
+In another terminal:
 
-### 4. Build & serve the web app (or run dev)
-
-**Development:**
 ```bash
 cd web
 npm run dev
 ```
-Open `http://localhost:5173` (proxies API to 3000).
 
-**Production:** Build and let the server serve static files:
+Open `http://localhost:5173` in a WebGPU-capable browser (Chrome, Edge, or other Chromium-based).
+
+### 3. Production build
+
 ```bash
 cd web
 npm run build
 cd ../server
 npm start
 ```
+
 Open `http://localhost:3000`.
 
-### 5. Full mode — Start the worker (automatic)
+## Notes
 
-**Option A — One click (recommended)**  
-Double‑click **launcher.bat** (Windows) or run `node launcher.js` (Mac/Linux).  
-The launcher will fetch a session, start the worker, and open [the app](https://local-ai-platform-production.up.railway.app/).
+- The first time a user opens the app, WebLLM will **download the model weights** in the background (a few GB). Subsequent loads are much faster thanks to caching.
+- All prompts and responses stay in the browser; the server only serves static files.
 
-**Option B — Manual**  
-```bash
-cd worker
-npm start
-```
-Then open the URL it prints (or [the live app](https://local-ai-platform-production.up.railway.app/) with that session).
-
-## Model mapping
-
-The web UI shows models from `model-catalog.json`. The worker maps these to Ollama model names. Pull a model first: `ollama pull llama3.2:3b`
-</think>
