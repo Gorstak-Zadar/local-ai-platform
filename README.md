@@ -2,7 +2,7 @@
 
 **Free · Unlimited · Your Hardware**
 
-→ **[Try it live](https://gorstak-zadar.github.io/local-ai-platform/)**
+→ **[Try it live](https://gorstak-zadar.github.io/GorstaksAI/)**
 
 A ChatGPT-like web interface where **all inference runs in the user's browser via WebGPU**. No cloud GPUs, no API keys, no limits, no installs.
 
