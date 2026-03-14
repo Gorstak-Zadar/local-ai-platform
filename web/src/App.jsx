@@ -2,10 +2,26 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./App.css";
 
 const MODELS = [
-  { id: "Llama-3.2-3B-Instruct-q4f16_1-MLC", name: "Llama 3.2 3B", desc: "General purpose", vision: false },
+  // General purpose — latest
+  { id: "Llama-3.2-3B-Instruct-q4f16_1-MLC", name: "Llama 3.2 3B", desc: "General purpose (default)", vision: false },
+  { id: "Llama-3.1-8B-Instruct-q4f16_1-MLC", name: "Llama 3.1 8B", desc: "Strong general chat", vision: false },
   { id: "Hermes-3-Llama-3.2-3B-q4f16_1-MLC", name: "Hermes 3 3B", desc: "Creative, less filtered", vision: false },
   { id: "Qwen3-4B-q4f16_1-MLC", name: "Qwen 3 4B", desc: "Smart reasoning", vision: false },
+  { id: "Qwen3-8B-q4f16_1-MLC", name: "Qwen 3 8B", desc: "Strong reasoning", vision: false },
+  { id: "Phi-3.5-mini-instruct-q4f16_1-MLC", name: "Phi 3.5 Mini", desc: "Efficient 3.8B", vision: false },
+  { id: "Mistral-7B-Instruct-v0.3-q4f16_1-MLC", name: "Mistral 7B v0.3", desc: "Strong instruct", vision: false },
+  { id: "gemma-2-2b-it-q4f16_1-MLC", name: "Gemma 2 2B", desc: "Google compact", vision: false },
+  { id: "gemma-2-9b-it-q4f16_1-MLC", name: "Gemma 2 9B", desc: "Google strong", vision: false },
+  // Low-resource
+  { id: "SmolLM2-360M-Instruct-q4f16_1-MLC", name: "SmolLM2 360M", desc: "Tiny, ~376MB VRAM", vision: false },
+  { id: "SmolLM2-1.7B-Instruct-q4f16_1-MLC", name: "SmolLM2 1.7B", desc: "Compact, capable", vision: false },
+  // Vision (images only — WebLLM has no video/audio models yet)
   { id: "Phi-3.5-vision-instruct-q4f16_1-MLC", name: "Phi 3.5 Vision", desc: "Understands images", vision: true },
+  // Specialists
+  { id: "DeepSeek-R1-Distill-Qwen-7B-q4f16_1-MLC", name: "DeepSeek R1 Qwen 7B", desc: "Reasoning specialist", vision: false },
+  { id: "Qwen2.5-Coder-7B-Instruct-q4f16_1-MLC", name: "Qwen 2.5 Coder 7B", desc: "Coding specialist", vision: false },
+  { id: "Qwen2.5-Math-1.5B-Instruct-q4f16_1-MLC", name: "Qwen 2.5 Math 1.5B", desc: "Math specialist", vision: false },
+  { id: "Ministral-3-3B-Instruct-2512-BF16-q4f16_1-MLC", name: "Ministral 3 3B Instruct", desc: "Mistral compact", vision: false },
 ];
 
 function fileToDataURL(file) {
